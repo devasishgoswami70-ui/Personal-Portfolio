@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devasish Goswami - Portfolio Preview</title>
+  <style>
+    /* ============ CSS VARIABLES & THEME ============ */
+    :root {
+      --bg: #0a0a0a;
+      --bg-secondary: #121212;
+      --fg: #fafafa;
+      --muted: #888888;
+      --primary: #5a6feb;
+      --primary-light: #7b8ef5;
+      --primary-dark: #373fc1;
+      --accent: #a855f7;
+      --accent-light: #c2a0ff;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.08);
+      --gradient-start: #5a6feb;
+      --gradient-end: #a855f7;
+      --font-display: 'Space Grotesk', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body), system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      margin: 0;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ============ NAVIGATION ============ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      padding: 0 2rem;
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-display), system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: -0.5px;
+      color: var(--fg);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: none; /* Mobile first - hidden on mobile, shows on desktop */
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .cta-button {
+      padding: 0.75rem 1.75rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(90, 111, 235, 0.3);
+    }
+
+    .menu-toggle {
+      display: block;
+      background: none;
+      border: none;
+      color: var(--fg);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* ============ HERO SECTION ============ */
+    .hero {
+      min-height: 100vh;
+      padding: 200px 2rem 100px;
+      position: relative;
+    }
+
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(90, 111, 235, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-secondary) 100%);
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .headline {
+      font-family: var(--font-display), system-ui, sans-serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      font-style: italic;
+    }
+
+    .skill-tags .tag {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin: 0 0.5rem 0.5rem 0;
+      transition: all 0.2s;
+    }
+
+    .skill-tags .tag:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    /* ============ ABOUT SECTION ============ */
+    .section {
+      padding: 100px 2rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display), system-ui, sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      font-size: 1.1rem;
+    }
+
+    .about-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+    }
+
+    .profile-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .profile-circle {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      color: white;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+
+    .interests {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .interest-tag {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .interest-tag:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ============ EXPERTISE SECTION ============ */
+    .skills-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .skills-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .skill-category {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .skill-category h3 {
+      font-family: var(--font-display), system-ui, sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag-small {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .skill-tag-small:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ============ PROJECTS SECTION ============ */
+    .projects-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+      background: var(--bg-secondary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-image::after {
+      content: attr(category);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.5rem;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-content h3 {
+      font-family: var(--font-display), system-ui, sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .project-content p {
+      color: var(--muted);
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-line-clamp: 2;
+      box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .meta-tag {
+      background: var(--bg-secondary);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    /* ============ JOURNEY SECTION ============ */
+    .timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary), var(--accent));
+    }
+
+    .timeline-item {
+      padding: 2rem 0;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 0.5rem;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .timeline-year {
+      font-family: var(--font-display), system-ui, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-desc {
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    /* ============ CONTACT SECTION ============ */
+    .contact-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .contact-method {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .contact-method h4 {
+      font-family: var(--font-display), system-ui, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .contact-method p {
+      margin: 0.5rem 0;
+      color: var(--muted);
+    }
+
+    .contact-method a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: text-decoration 0.2s;
+    }
+
+    .contact-method a:hover {
+      text-decoration: underline;
+    }
+
+    /* ============ FOOTER ============ */
+    footer {
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display), system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .footer-tagline {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      margin: 2rem 0;
+    }
+
+    .footer-links a {
+      margin: 0 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-copyright {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 480px) {
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 10, 0.98);
+        padding: 2rem;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hero {
+        padding-top: 150px;
+      }
+
+      .skill-tags .tag {
+        font-size: 0.65rem;
+        padding: 0.4rem 0.75rem;
+      }
+    }
+
+    /* ============ REDUCED MOTION ============ */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="#" class="logo">DEVASISH</a>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="cta-button" onclick="scrollToSection('contact')">Let's Talk</button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-gradient"></div>
+    <div class="hero-content">
+      <h1 class="headline">Turning Ideas Into Impactful Digital Experiences.</h1>
+      <p class="subtitle">I'm Devasish — an aspiring digital marketer and business enthusiast passionate about building brands, understanding consumers and creating meaningful digital experiences.</p>
+      <div class="skill-tags">
+        <span class="tag">Digital Marketing</span>
+        <span class="tag">Business Strategy</span>
+        <span class="tag">Creative Thinking</span>
+      </div>
+      <div class="cta-row">
+        <button class="cta-button" onclick="scrollToSection('projects')">Explore My Work</button>
+        <button class="cta-button" style="background: var(--bg-secondary); border: 1px solid var(--border); color: var(--fg);" onclick="scrollToSection('contact')">Let's Connect</button>
+      </div>
+      <p style="margin-top: 2rem; color: var(--muted); font-size: 0.875px;">
+        Open to Internships, Freelance Projects & Collaborations.
+      </p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section" id="about">
+    <div class="section-title">More Than Just Marketing. A Mindset of Growth.</div>
+    <p class="section-subtitle">I'm currently pursuing my B.Com at St. Xavier's College, Ranchi. Alongside my academics, I'm developing practical skills in digital marketing, business strategy, e-commerce and technology.</p>
+
+    <div class="about-grid">
+      <div>
+        <p>I enjoy exploring how brands attract customers, how businesses position themselves in competitive markets and how digital platforms can create growth opportunities. I'm someone who believes in continuous learning, experimentation and turning ideas into practical solutions.</p>
+        <div class="interests">
+          <span class="interest-tag">Business & entrepreneurship</span>
+          <span class="interest-tag">Marketing psychology</span>
+          <span class="interest-tag">Artificial intelligence</span>
+          <span class="interest-tag">Financial markets</span>
+          <span class="interest-tag">Technology & innovation</span>
+          <span class="interest-tag">Creative content</span>
+        </div>
+      </div>
+      <div class="profile-card">
+        <div class="profile-circle">DG</div>
+        <h3 style="margin: 1rem 0 0.5rem;">Devasish Goswami</h3>
+        <p style="color: var(--muted); font-size: 0.875rem;">Digital Marketer | Strategist</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expertise Section -->
+  <section class="section" id="expertise">
+    <div class="section-title">Expertise & Skills</div>
+    <p class="section-subtitle">A comprehensive look at my capabilities across digital marketing, business strategy, and technology tools.</p>
+
+    <div class="skills-grid">
+      <div class="skill-category">
+        <h3>Digital Marketing</h3>
+        <div class="skill-list">
+          <span class="skill-tag-small">Social Media Marketing</span>
+          <span class="skill-tag-small">Google Ads Fundamentals</span>
+          <span class="skill-tag-small">Content Strategy</span>
+          <span class="skill-tag-small">Brand Positioning</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <h3>Business & Strategy</h3>
+        <div class="skill-list">
+          <span class="skill-tag-small">Competitor Analysis</span>
+          <span class="skill-tag-small">Customer Persona Development</span>
+          <span class="skill-tag-small">Market Research</span>
+          <span class="skill-tag-small">Strategic Thinking</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <h3>Tools & Technology</h3>
+        <div class="skill-list">
+          <span class="skill-tag-small">Canva</span>
+          <span class="skill-tag-small">Microsoft Excel</span>
+          <span class="skill-tag-small">Google Ads</span>
+          <span class="skill-tag-small">Shopify</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="section" id="projects">
+    <div class="section-title">Selected Work & Creative Experiments.</p>
+    <p class="section-subtitle">These are a combination of academic assignments, self-initiated concepts and practical experiments.</p>
+
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <article class="project-card">
+        <div class="project-image" category="Digital Marketing"></div>
+        <div class="project-content">
+          <h3>Blinkit Marketing Strategy</h3>
+          <p>A marketing analysis project exploring Blinkit's customer segments, buyer personas, competitive positioning and marketing communication.</p>
+          <div class="project-meta">
+            <span class="meta-tag">Digital Marketing</span>
+            <span class="meta-tag">2024</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2 -->
+      <article class="project-card">
+        <div class="project-image" category="Social Media"></div>
+        <div class="project-content">
+          <h3>Samsung Social Media Advertising</h3>
+          <p>A creative advertising exercise focused on developing engaging social media advertising concepts for Samsung.</p>
+          <div class="project-meta">
+            <span class="meta-tag">Social Media</span>
+            <span class="meta-tag">2024</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 3 -->
+      <article class="project-card">
+        <div class="project-image" category="Brand Analysis"></div>
+        <div class="project-content">
+          <h3>Snitch Digital Presence Analysis</h3>
+          <p>An analysis of Snitch's digital presence, brand positioning and online marketing approach.</p>
+          <div class="project-meta">
+            <span class="meta-tag">Brand Analysis</span>
+            <span class="meta-tag">2024</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 4 -->
+      <article class="project-card">
+        <div class="project-image" category="Performance Marketing"></div>
+        <div class="project-content">
+          <h3>Amazon Advertising Strategy</h3>
+          <p>An academic project exploring Amazon advertising strategies, sponsored ads and advertising performance metrics.</p>
+          <div class="project-meta">
+            <span class="meta-tag">Performance Marketing</span>
+            <span class="meta-tag">2024</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 5 -->
+      <article class="project-card">
+        <div class="project-image" category="Entrepreneurship"></div>
+        <div class="project-content">
+          <h3>Evolveon – Digital Marketing Agency</h3>
+          <p>My self-initiated digital marketing agency concept, focused on helping businesses develop their online presence.</p>
+          <div class="project-meta">
+            <span class="meta-tag">Entrepreneurship</span>
+            <span class="meta-tag">2024</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 6 -->
+      <article class="project-card">
+        <div class="project-image" category="E-commerce"></div>
+        <div class="project-content">
+          <h3>Curated Cart</h3>
+          <p>A social commerce and product-discovery brand concept focused on curated products and engaging social media content.</p>
+          <div class="project-meta">
+            <span class="meta-tag">E-commerce</span>
+            <span class="meta-tag">2024</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 7 -->
+      <article class="project-card">
+        <div class="project-image" category="Brand Development"></div>
+        <div class="project-content">
+          <h3>StyleNest</h3>
+          <p>A brand-building exercise involving social media positioning, visual identity and content planning.</p>
+          <div class="project-meta">
+            <span class="meta-tag">Brand Development</span>
+            <span class="meta-tag">2024</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Journey Section -->
+  <section class="section" id="journey">
+    <div class="section-title">My Journey</p>
+    <p class="section-subtitle">An ongoing journey of learning, building, and growing as a digital marketer and strategist.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">2022 - Present</div>
+        <div class="timeline-desc">B.Com at St. Xavier's College, Ranchi - Building business fundamentals</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2023</div>
+        <div class="timeline-desc">Started exploring digital marketing alongside B.Com studies - courses and self-directed learning</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2023-2024</div>
+        <div class="timeline-desc">Learned Google Ads fundamentals - campaign structure, keyword strategy, performance optimization</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2024</div>
+        <div class="timeline-desc">Explored social media marketing and brand strategy through practical projects</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2024</div>
+        <div class="timeline-desc">Worked on e-commerce and branding projects - Curated Cart and StyleNest</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2024</div>
+        <div class="timeline-desc">Launched Evolveon agency concept - built complete brand from identity to service offerings</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">Present</div>
+        <div class="timeline-desc">Exploring AI, business strategy and advanced marketing techniques</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications Section -->
+  <section class="section" style="background: var(--bg-secondary);">
+    <div class="section-title" style="color: var(--primary);">Certifications & Education</div>
+    <div style="max-width: 800px; margin: 0 auto;">
+      <div style="margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border);">
+        <h4 style="margin: 0 0 0.5rem; font-family: var(--font-display);">Bachelor of Commerce (B.Com)</h4>
+        <p style="margin: 0; color: var(--muted);">St. Xavier's College, Ranchi • Expected Graduation: 2027</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem;">
+          <h5 style="margin: 0 0 0.5rem; font-size: 0.875rem;">Google Ads Search Certification</h5>
+          <p style="margin: 0; color: var(--muted); font-size: 0.75rem;">Google • In Progress • 2024</p>
+        </div>
+        <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem;">
+          <h5 style="margin: 0 0 0.5rem; font-size: 0.875rem;">HubSpot Digital Marketing Course</h5>
+          <p style="margin: 0; color: var(--primary); font-size: 0.75rem;">HubSpot Academy • Completed • 2024</p>
+        </div>
+        <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem;">
+          <h5 style="margin: 0 0 0.5rem; font-size: 0.875rem;">Microsoft Excel Training</h5>
+          <p style="margin: 0; color: var(--muted); font-size: 0.75rem;">Microsoft • Completed • 2023</p>
+        </div>
+        <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem;">
+          <h5 style="margin: 0 0 0.5rem; font-size: 0.875rem;">Digital Marketing Training</h5>
+          <p style="margin: 0; color: var(--muted); font-size: 0.75rem;">Tutedude • Completed • 2023</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Currently Exploring Section -->
+  <section class="section" style="background: var(--bg-secondary);">
+    <div class="section-title" style="color: var(--primary);">Always Learning. Always Evolving.</div>
+    <p class="section-subtitle" style="color: var(--muted);">A glimpse into the areas I'm currently exploring to level up my craft.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem;">
+      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; transition: transform 0.2s;">
+        <h4 style="margin: 0 0 0.5rem; font-size: 0.875rem; font-weight: 500;">Advanced Digital Marketing</h4>
+        <p style="margin: 0; color: var(--muted); font-size: 0.7rem;">In-depth strategies and emerging channels</p>
+      </div>
+      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; transition: transform 0.2s;">
+        <h4 style="margin: 0 0 0.5rem; font-size: 0.875rem; font-weight: 500;">Search Engine Optimization</h4>
+        <p style="margin: 0; color: var(--muted); font-size: 0.7rem;">On-page, off-page, technical SEO</p>
+      </div>
+      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; transition: transform 0.2s;">
+        <h4 style="margin: 0 0 0.5rem; font-size: 0.875rem; font-weight: 500;">Performance Marketing</h4>
+        <p style="margin: 0; color: var(--muted); font-size: 0.7rem;">ROI-focused campaigns and optimization</p>
+      </div>
+      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; transition: transform 0.2s;">
+        <h4 style="margin: 0 0 0.5rem; font-size: 0.875rem; font-weight: 500;">AI in Marketing</h4>
+        <p style="margin: 0; color: var(--muted); font-size: 0.7rem;">Tools and automation for marketing</p>
+      </div>
+      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; transition: transform 0.2s;">
+        <h4 style="margin: 0 0 0.5rem; font-size: 0.875rem; font-weight: 500;">Business Analytics</h4>
+        <p style="margin: 0; color: var(--muted); font-size: 0.7rem;">Data-driven decision making</p>
+      </div>
+      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; transition: transform 0.2s;">
+        <h4 style="margin: 0 0 0.5rem; font-size: 0.875rem; font-weight: 500;">Advanced Excel</h4>
+        <p style="margin: 0; color: var(--muted); font-size: 0.7rem;">Power Query, pivot tables, automation</p>
+      </div>
+      <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; transition: transform 0.2s;">
+        <h4 style="margin: 0 0 0.5rem; font-size: 0.875rem; font-weight: 500;">Personal Branding</h4>
+        <p style="margin: 0; color: var(--muted); font-size: 0.7rem;">Building professional presence</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="section-title">Have an Idea? Let's Make It Happen.</div>
+    <p class="section-subtitle">I'm always interested in connecting with ambitious people, exploring opportunities and collaborating on meaningful projects.</p>
+
+    <div class="contact-grid">
+      <div class="contact-method">
+        <h4>Email</h4>
+        <p><a href="mailto:devasish.goswami@email.com">devasish.goswami@email.com</a></p>
+      </div>
+
+      <div class="contact-method">
+        <h4>LinkedIn</h4>
+        <p><a href="https://linkedin.com/in/devasishgoswami" target="_blank">linkedin.com/in/devasishgoswami</a></p>
+      </div>
+
+      <div class="contact-method">
+        <h4>Instagram</h4>
+        <p><a href="https://instagram.com/devasishgoswami" target="_blank">instagram.com/devasishgoswami</a></p>
+      </div>
+
+      <div style="grid-column: 1 / -1;">
+        <h4>Message</h4>
+        <form style="background: var(--bg-secondary); padding: 2rem; border-radius: 8px; border: 1px solid var(--border);">
+          <input type="text" placeholder="Name" style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--fg);">
+          <input type="email" placeholder="Email" style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--fg);">
+          <input type="text" placeholder="Subject" style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--fg);">
+          <textarea rows="4" placeholder="Message" style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--fg); font-family: var(--font-body); resize: none;"></textarea>
+          <button type="submit" style="width: 100%; padding: 0.75rem; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border: none; border-radius: 4px; font-weight: 500; cursor: pointer;">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">DEVASISH</div>
+    <div class="footer-tagline">Curious Mind. Creative Thinking. Continuous Growth.</div>
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#projects">Projects</a>
+    </div>
+    <div class="footer-copyright">
+      © 2026 Devasish Goswami. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const links = document.getElementById('navLinks');
+      links.classList.toggle('active');
+    }
+
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Navbar background on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 100) {
+        nav.style.background = 'rgba(10, 10, 10, 0.95)';
+      } else {
+        nav.style.background = 'rgba(10, 10, 10, 0.8)';
+      }
+    });
+  </script>
+</body>
+</html>
